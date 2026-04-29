@@ -1,0 +1,19 @@
+name: ko_naive
+
+data:
+  ticker: KO
+  interval: 1d
+  start: "2015-01-01"
+  end: "2024-01-01"
+
+target:
+  type: forward_return
+  horizon: 1
+
+backtest:
+  n_splits: 5
+  min_train_size: 252
+  embargo: 2
+
+model:
+  class: naive
