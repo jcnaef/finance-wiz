@@ -19,7 +19,7 @@ A local stock prediction engine with a **swappable-algorithm pipeline**. Swap mo
 ## Installation
 
 ```bash
-git clone <repo>
+git clone <https://github.com/jcnaef/finance-wiz.git>
 cd finance_wiz
 uv sync
 ```
@@ -44,15 +44,27 @@ Results are written to `runs/<name>_<timestamp>.json`.
 
 ## Results
 
-KO daily 2015–2024 · 1-day forward return target · 5 walk-forward folds (mean across folds)
+KO 2015–2024 · 5 walk-forward folds · metrics are means across folds
 
-| Experiment | Model       |   MAE    |   RMSE   | Dir Acc | Sharpe |
-|------------|-------------|----------|----------|---------|--------|
-| ko_naive   | Naive       | 0.007777 | 0.011280 |   0.8%  |  0.00  |
-| ko_lgbm    | LightGBM    | 0.008675 | 0.012242 |  49.8%  |  0.11  |
-| ko_lstm    | LSTM        | 0.010114 | 0.013848 |  49.2%  | -0.17  |
+### 1-day return (interval=1d)
 
-Dir Acc = fraction of folds where predicted direction matched actual direction.
+| Model    |   MAE    |   RMSE   | Dir Acc | Sharpe |
+|----------|----------|----------|---------|--------|
+| Naive    | 0.0078   | 0.0113   |   0.8%  |  0.00  |
+| EMA      | 0.0080   | 0.0115   |  51.3%  |  0.38  |
+| LightGBM | 0.0087   | 0.0122   |  49.8%  |  0.11  |
+| XGBoost  | 0.0087   | 0.0122   |  49.9%  |  0.08  |
+| LSTM     | 0.0101   | 0.0138   |  49.2%  | -0.17  |
+
+### 5-day return (interval=5d)
+
+| Model   |   MAE    |   RMSE   | Dir Acc | Sharpe |
+|---------|----------|----------|---------|--------|
+| EMA     | 0.0163   | 0.0229   |  53.7%  |  1.38  |
+| LSTM    | 0.0205   | 0.0308   |  55.6%  |  0.90  |
+| XGBoost | 0.0224   | 0.0327   |  48.4%  | -0.18  |
+
+Dir Acc = fraction of test-set bars where predicted direction matched actual.
 
 ## Experiment config
 

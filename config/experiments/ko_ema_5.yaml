@@ -1,0 +1,26 @@
+name: ko_ema_5
+
+data:
+  ticker: KO
+  interval: 5d
+  start: "2015-01-01"
+  end: "2024-01-01"
+
+features:
+  sma_windows: [5, 10, 20]
+  ema_windows: [12, 26]
+
+target:
+  type: forward_return
+  horizon: 1
+
+backtest:
+  n_splits: 5
+  min_train_size: 252
+  embargo: 2
+
+model:
+  class: ema
+  scale_features: false
+  params:
+    span: 20

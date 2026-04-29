@@ -1,0 +1,29 @@
+name: ko_lgbm
+
+data:
+  ticker: KO
+  interval: 1d
+  start: "2015-01-01"
+  end: "2024-01-01"
+
+features:
+  sma_windows: [5, 10, 20]
+  ema_windows: [12, 26]
+
+target:
+  type: forward_return
+  horizon: 1
+
+backtest:
+  n_splits: 5
+  min_train_size: 252
+  embargo: 2
+
+model:
+  class: lgbm
+  scale_features: false
+  params:
+    n_estimators: 200
+    learning_rate: 0.05
+    verbosity: -1
+    random_state: 42
